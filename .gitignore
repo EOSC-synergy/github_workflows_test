@@ -1,0 +1,11 @@
+# Ignore all ..
+*
+
+# but the JePL files ..
+!.gitignore
+!.sqa/*
+!Jenkinsfile
+!patch.issue_116
+!.git_credential_helper.sh
+!.??*/
+!.??*/**
