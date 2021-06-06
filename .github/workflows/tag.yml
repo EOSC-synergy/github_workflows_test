@@ -39,27 +39,27 @@ jobs:
             if: "env.RELEASE_MILESTONE"
           - name: Create PR to master based on current version
             id: cpr
-            uses: peter-evans/create-pull-request@v3
+            uses: repo-sync/pull-request@v2
             with:
-              token: ${{ secrets.GITHUB_TOKEN }}
-              commit-message: Merge current release ${{ env.RELEASE_MILESTONE }} to master branch
-              committer: ${{ env.GIT_COMMIT_COMMITTER }}
-              author: ${{ env.GIT_COMMIT_AUTHOR }}
-              signoff: true
-              branch: stable/${{ env.RELEASE_MILESTONE }}
-              delete-branch: true
-              base: master
-              title: "Release ${{ steps.tag_version.outputs.new_tag }} merge to master"
-              body: |
-                ${{ steps.tag_version.outputs.changelog }}
-              labels: |
-                release
-                critical
-              reviewers: orviz,samuelbernardolip,davrodgon
-              draft: false
+              destination_branch: "master"
+              source_branch: "stable/${{ env.RELEASE_MILESTONE }}"
+              pr_title: "Pulling current release ${{ steps.tag_version.outputs.new_tag }} to master branch"
+              pr_body: |
+                ":crown: *An automated PR*"
+                "Pulling ${{ github.ref }} into master, requested by ${{ env.GIT_COMMIT_COMMITTER }}"
+                "*Commit message*:"
+                "Subject: ${{ env.GIT_COMMIT_MESSAGE_SUBJECT }}"
+                "${{ env.GIT_COMMIT_MESSAGE_BODY }}"
+                "${{ steps.tag_version.outputs.changelog }}"
+              pr_reviewer: "orviz,samuelbernardolip,davrodgon"
+              pr_label: "release,critical"
+              pr_draft: false
+              pr_allow_empty: false
+              github_token: ${{ secrets.GITHUB_TOKEN }}
             if: "env.RELEASE_MILESTONE"
           - name: Check PR details
             run: |
-              echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
-              echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+              echo "Pull Request Number - ${{ steps.cpr.outputs.pr_number }}"
+              echo "Pull Request URL - ${{ steps.cpr.outputs.pr_url }}"
+              echo "Pull Request has changed files - ${{ steps.cpr.outputs.has_changed_files }}"
             if: "env.RELEASE_MILESTONE"
