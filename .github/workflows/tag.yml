@@ -45,12 +45,12 @@ jobs:
               source_branch: "stable/${{ env.RELEASE_MILESTONE }}"
               pr_title: "Pulling current release ${{ steps.tag_version.outputs.new_tag }} to master branch"
               pr_body: |
-                ":crown: *An automated PR*"
-                "Pulling ${{ github.ref }} into master, requested by ${{ env.GIT_COMMIT_COMMITTER }}"
-                "*Commit message*:"
-                "Subject: ${{ env.GIT_COMMIT_MESSAGE_SUBJECT }}"
-                "${{ env.GIT_COMMIT_MESSAGE_BODY }}"
-                "${{ steps.tag_version.outputs.changelog }}"
+                :crown: *An automated PR*
+                Pulling ${{ github.ref }} into master, requested by ${{ env.GIT_COMMIT_COMMITTER }}
+                *Commit message*:
+                Subject: ${{ env.GIT_COMMIT_MESSAGE_SUBJECT }}
+                ${{ env.GIT_COMMIT_MESSAGE_BODY }}
+                ${{ steps.tag_version.outputs.changelog }}
               pr_reviewer: "orviz,samuelbernardolip,davrodgon"
               pr_label: "release,critical"
               pr_draft: false
