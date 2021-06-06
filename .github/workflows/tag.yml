@@ -42,7 +42,7 @@ jobs:
             uses: peter-evans/create-pull-request@v3
             with:
               token: ${{ secrets.GITHUB_TOKEN }}
-              commit-message: [create-pull-request] Merge release ${{ env.RELEASE_MILESTONE }}
+              commit-message: Merge current release ${{ env.RELEASE_MILESTONE }} to master branch
               committer: ${{ env.GIT_COMMIT_COMMITTER }}
               author: ${{ env.GIT_COMMIT_AUTHOR }}
               signoff: true
